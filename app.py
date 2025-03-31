@@ -1,6 +1,7 @@
 import streamlit as st
 import plotly.express as px
 import matplotlib.pyplot as plt
+import pandas as pd
 from dataset import df
 
 st.set_page_config(layout="wide")	# Configuração da página
@@ -21,5 +22,27 @@ with aba2:	# Segunda aba
     plt.xlabel('Empresa')
     plt.ylabel('Quantidade de Reclamações')
     plt.xticks(rotation=45, ha='right')
+    plt.tight_layout()
+    st.pyplot(plt)
+
+    # Plotar gráfico de barras horizontais
+
+    top_empresas_resolucoes = pd.DataFrame({
+        'empresa': df['empresa'],
+        'status': df['status']  # Corrigido aqui também!
+    })
+
+    contagem = df.groupby(['empresa', 'status']).size().reset_index(name='frequencia')
+    total = contagem['frequencia'].sum()
+    contagem['probabilidade'] = contagem['frequencia'] / total
+
+    top10 = contagem.sort_values(by='probabilidade', ascending=False).head(10)
+    top10['par'] = top10['empresa'] + ' - ' + top10['status']
+
+    plt.figure(figsize=(10, 6))
+    plt.barh(top10['par'], top10['probabilidade'])
+    plt.xlabel('Probabilidade')
+    plt.title('Top 10 Interseções entre Empresa e Status')
+    plt.gca().invert_yaxis()
     plt.tight_layout()
     st.pyplot(plt)
