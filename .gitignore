@@ -1,0 +1,39 @@
+# Ambientes virtuais
+venv/
+.venv/
+
+# Arquivos temporários
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Dados grandes (como JSONs e CSVs)
+*.csv
+*.json
+
+# Configurações do sistema
+.DS_Store
+Thumbs.db
+
+# Configurações do VSCode
+.vscode/
+
+# Logs
+*.log
+
+# Arquivos do Jupyter (se usar)
+.ipynb_checkpoints
+
+# Arquivos de pacotes
+*.egg-info/
+dist/
+build/
+
+# Arquivos de cache e pip
+pip-wheel-metadata/
+*.egg
+.eggs/
+.cache/
+
+# Arquivos de Streamlit
+.streamlit/config.toml
